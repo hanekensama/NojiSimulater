@@ -14,7 +14,7 @@ cat /dev/stdin | \
     sed -E "s/$IR_ALL/  \1(/" | \
     sed -E "/$IR_ALL/s/$/);/" | \
     sed -E "s/:/:\n/g" | \
-    sed -E "s/B\(HALT\);/\/* & *\//"
+    sed -E "s/B\(HALT\);/\/* & *\//i"
 
 echo '  reg();'
 echo '  return 0;'
