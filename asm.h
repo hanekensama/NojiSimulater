@@ -8,6 +8,7 @@
 // dmem の中身は16ビットで16進数4桁に対応するため+1して5とする
 #define TAB_OF_MEM_STATE 5
 
+// 各アセンブリ命令の定義
 #define ST(rs1, rs2) dmem[(rs1) % MEM_SIZE] = (rs2)
 #define LD(rd, rs1) rd = dmem[(rs1) % MEM_SIZE]
 #define ADD(rd, rs1, rs2) rd = (rs1) + (rs2)
@@ -46,26 +47,30 @@ void mem() {
 
 void memAt(int address) {
   address = address % MEM_SIZE;
-  printf("dmem[%2x]:%4x\n", address, dmem[address]);
+  printf("dmem[%2x]:%4x\n", address, dmem[address % MEM_SIZE]);
 }
 
 void printMemHeader() {
-  for (int i = 0; i < 3; ++i)
+  int i;
+  for (i = 0; i < 3; ++i)
     printf(" ");
   printf("| ");
-  for (int i = 0; i < NUM_COLUMN; ++i) 
+
+  for (i = 0; i < NUM_COLUMN; ++i) 
     printf("%4x ", i);
   printf("\n");
 
-  for (int i = 0; i < TAB_OF_MEM_STATE * (NUM_COLUMN + 1); ++i)
+  for (i = 0; i < TAB_OF_MEM_STATE * (NUM_COLUMN + 1); ++i)
     printf("-");
   printf("\n");
 }
 
 void printMemState() {
-  for (int row = 0; row < MEM_SIZE / NUM_COLUMN; ++row) {
+  int row;
+  for (row = 0; row < MEM_SIZE / NUM_COLUMN; ++row) {
     printf("%2x | ", row);
-    for (int column = 0; column < NUM_COLUMN; ++column) {
+    int column;
+    for (column = 0; column < NUM_COLUMN; ++column) {
       printf("%4x ", dmem[row * NUM_COLUMN + column]);
     }
     printf("\n");
