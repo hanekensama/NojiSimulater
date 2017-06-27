@@ -1,0 +1,48 @@
+LI r1,3
+    LI r2,1
+    LI r3,2
+    LI r4,-101
+LP1:ST (r1),r2
+    ADD r1,r1,r3
+    ADD r5,r1,r4
+    BNZ r5,LP1:
+
+    LI r1,9
+    LI r2,0
+    LI r3,3
+    LI r4,-102
+LP2:ST (r1),r2
+    ADD r1,r1,r3
+    ADD r5,r1,r4
+    BNZ r5,LP2:
+
+    LI r1,15
+    LI r2,0 
+    LI r3,5
+    LI r4,-105
+LP3:ST (r1),r2
+    ADD r1,r1,r3
+    ADD r5,r1,r4
+    BNZ r5,LP3:
+
+    LI r1,21
+    LI r2,0
+    LI r3,7
+    LI r4,-105
+LP4:ST (r1),r2
+    ADD r1,r1,r3
+    ADD r5,r1,r4
+    BNZ r5,LP4:
+
+    LI r0,1
+    LI r1,3
+    LI r2,0
+    LI r3,2
+    LI r4,-101
+LP5:LD r2,(r1)
+    ADD r0,r0,r2
+    ADD r1,r1,r3
+    ADD r5,r1,r4
+    BNZ r5,LP5:
+
+HALT:B HALT:
