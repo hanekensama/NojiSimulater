@@ -1,13 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
-IR_BRANCH=(B BNZ BZ)
-IR_ALL=(LD ST ADD CMP MLT LI ADDI)+$IR_BRANCH
+IR_BRANCH="(B|BNZ|BZ)"
+IR_ALL="(LD|ST|ADD|CMP|MLT|LI|ADDI|B|BNZ|BZ)"
 
-cat input.txt | \
+echo '#include "asm.h"'
+echo ''
+echo 'int main() {' 
+
+cat /dev/stdin | \
+    sed -E "s/ //g" | \
     sed -e "s/#/\/\//g" | \
-    sed -E "s/$IR_ALL/\1/" | \
-    sed -E "s/$IR_ALL/s/$/);/" | \
+    sed -E "/$IR_BRANCH.*:$/s/:$//" | \
+    sed -E "s/$IR_ALL/  \1(/" | \
+    sed -E "/$IR_ALL/s/$/);/" | \
     sed -E "s/:/:\n/g" | \
-    sed -E "$IR_BLANCH/s/://g" | \
-    sed -E "s/[<space>|<tab>]//g"
+    sed -E "s/B\(HALT\);/\/* & *\//"
 
+echo '  reg();'
+echo '  return 0;'
+echo '}'
+echo '' 
